@@ -1,0 +1,15 @@
+### 获取服务实例
+GET http://localhost:8484/findAll?service=io.github.maccoycookies.mcrpc.IUserService
+
+
+### 注册服务实例
+POST http://localhost:8484/reg?service=io.github.maccoycookies.mcrpc.IUserService
+Content-Type: application/json
+
+{"context":"mcrpc","host":"127.0.0.1","port":"7002","schema":"http","status":false,"parameters":{"env":"dev","tag": "RED"}}
+
+### 取消注册服务实例
+POST http://localhost:8484/unreg?service=io.github.maccoycookies.mcrpc.IUserService
+Content-Type: application/json
+
+{"context":"mcrpc","host":"127.0.0.1","port":"7002","schema":"http","status":false,"parameters":{"env":"dev","tag": "RED"}}
