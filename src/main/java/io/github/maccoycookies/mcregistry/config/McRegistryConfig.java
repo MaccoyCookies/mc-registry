@@ -1,5 +1,6 @@
 package io.github.maccoycookies.mcregistry.config;
 
+import io.github.maccoycookies.mcregistry.cluster.Cluster;
 import io.github.maccoycookies.mcregistry.health.HealthChecker;
 import io.github.maccoycookies.mcregistry.health.McHealthChecker;
 import io.github.maccoycookies.mcregistry.service.IRegistryService;
@@ -25,4 +26,10 @@ public class McRegistryConfig {
     public HealthChecker healthChecker(@Autowired IRegistryService registryService) {
         return new McHealthChecker(registryService);
     }
+
+    @Bean(initMethod = "init")
+    public Cluster cluster(@Autowired McRegistryConfigProperties mcRegistryConfigProperties) {
+        return new Cluster(mcRegistryConfigProperties);
+    }
+
 }

@@ -46,7 +46,7 @@ public class McHealthChecker implements HealthChecker {
                 }
             }
 
-        }, 10, 30, TimeUnit.SECONDS);
+        }, 10, 10, TimeUnit.SECONDS);
     }
 
     @Override

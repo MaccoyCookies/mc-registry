@@ -1,5 +1,7 @@
 package io.github.maccoycookies.mcregistry.controller;
 
+import io.github.maccoycookies.mcregistry.cluster.Cluster;
+import io.github.maccoycookies.mcregistry.cluster.Server;
 import io.github.maccoycookies.mcregistry.model.InstanceMeta;
 import io.github.maccoycookies.mcregistry.service.IRegistryService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,9 @@ public class McRegistryController {
 
     @Autowired
     private IRegistryService registryService;
+
+    @Autowired
+    private Cluster cluster;
 
     @RequestMapping("/reg")
     public InstanceMeta register(@RequestParam String service, @RequestBody InstanceMeta instance) {
@@ -61,10 +66,30 @@ public class McRegistryController {
     }
 
     @RequestMapping("/versions")
-    public Map<String, Long> versions(@RequestParam String service) {
-        log.info(" ===> versions {}", service);
-        return registryService.versions(service);
+    public Map<String, Long> versions(@RequestParam String services) {
+        log.info(" ===> versions {}", services);
+        return registryService.versions(services.split(","));
     }
 
+    @RequestMapping("/info")
+    public Server info() {
+        Server server = cluster.self();
+        log.info(" ===> info {}", server);
+        return server;
+    }
+
+    @RequestMapping("/cluster")
+    public List<Server> cluster() {
+        List<Server> servers = cluster.getServers();
+        log.info(" ===> cluster {}", servers);
+        return servers;
+    }
+
+    @RequestMapping("/leader")
+    public Server leader() {
+        Server server = cluster.leader();
+        log.info(" ===> leader {}", server);
+        return server;
+    }
 
 }

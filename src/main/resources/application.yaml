@@ -3,3 +3,10 @@ spring:
     name: mc-registry
 server:
   port: 8484
+
+
+mcregistry:
+  serverList:
+    - http://127.0.0.1:8484
+    - http://127.0.0.1:8485
+    - http://127.0.0.1:8486
