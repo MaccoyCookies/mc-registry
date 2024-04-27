@@ -51,6 +51,6 @@ public class McHealthChecker implements HealthChecker {
 
     @Override
     public void stop() {
-
+        executorService.shutdown();
     }
 }

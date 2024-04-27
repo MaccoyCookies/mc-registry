@@ -1,5 +1,6 @@
 package io.github.maccoycookies.mcregistry.service;
 
+import io.github.maccoycookies.mcregistry.cluster.Snapshot;
 import io.github.maccoycookies.mcregistry.model.InstanceMeta;
 
 import java.util.Arrays;
@@ -27,5 +28,6 @@ public interface IRegistryService {
     Long version(String service);
 
     Map<String, Long> versions(String ... services);
+
 }
 

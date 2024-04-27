@@ -2,8 +2,10 @@ package io.github.maccoycookies.mcregistry.controller;
 
 import io.github.maccoycookies.mcregistry.cluster.Cluster;
 import io.github.maccoycookies.mcregistry.cluster.Server;
+import io.github.maccoycookies.mcregistry.cluster.Snapshot;
 import io.github.maccoycookies.mcregistry.model.InstanceMeta;
 import io.github.maccoycookies.mcregistry.service.IRegistryService;
+import io.github.maccoycookies.mcregistry.service.impl.McRegistryServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +34,14 @@ public class McRegistryController {
     @RequestMapping("/reg")
     public InstanceMeta register(@RequestParam String service, @RequestBody InstanceMeta instance) {
         log.info(" ===> register {} @ {}", service, instance);
+        checkLeader();
         return registryService.register(service, instance);
+    }
+
+    private void checkLeader() {
+        if (!cluster.self().isLeader()) {
+            throw new RuntimeException("current server is not a leader, the leader is " + cluster.leader().getUrl());
+        }
     }
 
     @RequestMapping("/unreg")
@@ -90,6 +99,11 @@ public class McRegistryController {
         Server server = cluster.leader();
         log.info(" ===> leader {}", server);
         return server;
+    }
+
+    @RequestMapping("/snapshot")
+    public Snapshot snapshot() {
+        return McRegistryServiceImpl.snapshot();
     }
 
 }
