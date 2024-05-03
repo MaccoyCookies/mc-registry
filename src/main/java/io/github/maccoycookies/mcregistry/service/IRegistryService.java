@@ -23,7 +23,7 @@ public interface IRegistryService {
 
     // TODO
 
-    long renew(InstanceMeta instance, String ... services);
+    Long renew(InstanceMeta instance, String ... services);
 
     Long version(String service);
 

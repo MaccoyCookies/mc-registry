@@ -56,9 +56,9 @@ public class Cluster {
         for (String url : registryConfigProperties.getServerList()) {
             Server server = new Server();
             if (url.contains("localhost")) {
-                url.replace("localhost", host);
+                url = url.replace("localhost", host);
             } else if (url.contains("127.0.0.1")) {
-                url.replace("127.0.0.1", host);
+                url = url.replace("127.0.0.1", host);
             }
             if (url.equals(MYSELF.getUrl())) {
                 servers.add(MYSELF);

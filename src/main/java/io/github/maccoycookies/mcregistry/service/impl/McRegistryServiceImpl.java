@@ -65,13 +65,14 @@ public class McRegistryServiceImpl implements IRegistryService {
         return REGISTRY.get(service);
     }
 
-    public synchronized long renew(InstanceMeta instance, String ... services) {
+    public synchronized Long renew(InstanceMeta instance, String ... services) {
         // VERSIONS.put(service, VERSION.incrementAndGet());
         long now = System.currentTimeMillis();
         for (String service : services) {
             TIMESTAMPS.put(service + "@" + instance.toUrl(), now);
         }
         return now;
+        // return versions(services);
     }
 
     public Long version(String service) {
